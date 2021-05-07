@@ -120,9 +120,17 @@ class CurrentWeather {
     }
     
     
-    func getCurrentWeather(completion: @escaping(_ success : Bool)-> Void) {
+    func getCurrentWeather(location:WeatherLocation, completion: @escaping(_ success : Bool)-> Void) {
         
-        let LOCATIONAPI_URL = "https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=0266e19cd22e4bdbad78316eeb30e917&include=minutely"
+       
+        
+        var LOCATIONAPI_URL : String!
+        
+        if !location.isCurrentLocation {
+            LOCATIONAPI_URL = String(format: "https://api.weatherbit.io/v2.0/current?city=%@,%@&key=0266e19cd22e4bdbad78316eeb30e917&include=minutely", location.city,location.countryCode)
+        } else {
+            LOCATIONAPI_URL = ""
+        }
         
         AF.request(LOCATIONAPI_URL).responseJSON { (response) in
             
