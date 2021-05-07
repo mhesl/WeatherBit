@@ -48,6 +48,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" red="0.33173024290000003" green="0.33173024290000003" blue="0.33173024290000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <connections>
                 <outlet property="dayLabel" destination="3R3-WL-htL" id="DHj-jU-GqB"/>
                 <outlet property="tempLabel" destination="qJ8-Mp-326" id="bVh-YW-5rE"/>
