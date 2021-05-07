@@ -88,7 +88,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="xFf-0S-Ijd"/>
                                     </constraints>
-                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CeH-4Q-WyZ">
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CeH-4Q-WyZ">
                                         <size key="itemSize" width="80" height="100"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -102,7 +102,7 @@
                                         <constraint firstAttribute="height" constant="80" id="T6p-FT-hHR"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="xOG-YT-N2e"/>
                                     </constraints>
-                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KO9-5E-pgK">
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KO9-5E-pgK">
                                         <size key="itemSize" width="80" height="80"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>

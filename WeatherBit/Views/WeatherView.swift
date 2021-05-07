@@ -24,6 +24,9 @@ class WeatherView: UIView {
     
     
     var currentWeather: CurrentWeather!
+    var weeklyWeatherForecastData : [WeeklyForecast] = []
+    var dailyWeatherForecastData : [HourlyForecast] = []
+    var weatherInfo : [WeatherInfo] = []
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -53,19 +56,23 @@ class WeatherView: UIView {
     
     
     private func setupTableView(){
-        
+        tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "Cell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         
     }
     
     private func setupHourlyCollectionView(){
-        
+        hourlyWeatherCollectionView.register(UINib(nibName: "ForecastCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "Cell")
+        hourlyWeatherCollectionView.dataSource = self
         
     }
     
     
     private func setupInfoCollectionView(){
-        
-        
+        infoCollectionView.register(UINib(nibName: "InfoCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "Cell")
+        infoCollectionView.dataSource = self
     }
     
     func refreshData(){
@@ -81,4 +88,46 @@ class WeatherView: UIView {
     }
     
 
+}
+
+extension WeatherView: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return weeklyWeatherForecastData.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WeatherTableViewCell
+        cell.generateCell(forecast: weeklyWeatherForecastData[indexPath.row])
+        return cell
+    }
+    
+    
+}
+
+extension WeatherView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == hourlyWeatherCollectionView {
+            return dailyWeatherForecastData.count
+        } else {
+            return weatherInfo.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == hourlyWeatherCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ForecastCollectionViewCell
+
+            cell.generateCell(weather: dailyWeatherForecastData[indexPath.row])
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! InfoCollectionViewCell
+            
+            cell.generateCell(weatherInfo: weatherInfo[indexPath.row])
+            return cell
+        }
+    }
+    
+    
 }
