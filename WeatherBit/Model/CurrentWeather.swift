@@ -16,7 +16,6 @@ class CurrentWeather {
     private var _currentTemp: Double!
     private var _feelsLike: Double!
     private var _uv: Double!
-    
     private var _weatherType: String!
     private var _pressure: Double!
     private var _humidity: Double!
@@ -129,7 +128,7 @@ class CurrentWeather {
         if !location.isCurrentLocation {
             LOCATIONAPI_URL = String(format: "https://api.weatherbit.io/v2.0/current?city=%@,%@&key=0266e19cd22e4bdbad78316eeb30e917&include=minutely", location.city,location.countryCode)
         } else {
-            LOCATIONAPI_URL = ""
+            LOCATIONAPI_URL = CURRENT_LOCATION_URL
         }
         
         AF.request(LOCATIONAPI_URL).responseJSON { (response) in

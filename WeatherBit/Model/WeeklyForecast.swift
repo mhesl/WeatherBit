@@ -46,9 +46,15 @@ class WeeklyForecast {
     }
     
     
-    class func downloadWeaklyForcastWeather(completion : @escaping(_ weaklyForecast: [WeeklyForecast]) -> Void) {
+    class func downloadWeaklyForcastWeather(location: WeatherLocation, completion : @escaping(_ weaklyForecast: [WeeklyForecast]) -> Void) {
         
-        let LOCATIONAPI_URL = "https://api.weatherbit.io/v2.0/forecast/daily?lat=35.7796&lon=-78.6382&key=0266e19cd22e4bdbad78316eeb30e917&include=minutely"
+        var LOCATIONAPI_URL : String!
+        
+        if !location.isCurrentLocation {
+            LOCATIONAPI_URL = String(format: "https://api.weatherbit.io/v2.0/forecast/daily?city=%@,%@&key=0266e19cd22e4bdbad78316eeb30e917&include=minutely", location.city,location.countryCode)
+        } else {
+            LOCATIONAPI_URL = CUURENT_LOCAtION_WEEKLY_FORECASt_URL
+        }
         
         AF.request(LOCATIONAPI_URL).responseJSON{ (response) in
             var result : [WeeklyForecast] = []
