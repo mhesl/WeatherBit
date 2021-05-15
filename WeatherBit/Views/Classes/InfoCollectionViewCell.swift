@@ -14,7 +14,6 @@ class InfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var infoImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func generateCell(weatherInfo : WeatherInfo){

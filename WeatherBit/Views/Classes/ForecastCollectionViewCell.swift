@@ -17,9 +17,8 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-    
+
     func generateCell(weather: HourlyForecast) {
         timeLabel.text = weather.date.time()
         temperatureLabel.text = "\(weather.temp)"

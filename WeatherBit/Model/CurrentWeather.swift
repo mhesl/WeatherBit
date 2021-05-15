@@ -134,6 +134,8 @@ class CurrentWeather {
         AF.request(LOCATIONAPI_URL).responseJSON { (response) in
             
             guard let data = response.value else {
+                print("there is a problem with downloding data for \(location.city ?? "empty")" )
+                self._city = location.city
                 completion(false)
                 return
             }
@@ -155,7 +157,7 @@ class CurrentWeather {
             
             completion(true)
             
-            print("ready : \(self.city)")
+           
         }
     }
 }

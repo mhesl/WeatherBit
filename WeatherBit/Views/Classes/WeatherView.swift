@@ -24,6 +24,7 @@ class WeatherView: UIView {
     @IBOutlet weak var infoCollectionView: UICollectionView!
     
     
+    //MARK: -Variables
     var currentWeather: CurrentWeather!
     var weeklyWeatherForecastData : [WeeklyForecast] = []
     var dailyWeatherForecastData : [HourlyForecast] = []
@@ -105,6 +106,8 @@ class WeatherView: UIView {
     
 
 }
+
+//MARK: -extensions
 
 extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     

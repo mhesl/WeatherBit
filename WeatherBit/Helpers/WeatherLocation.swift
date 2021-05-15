@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WeatherLocation {
+struct WeatherLocation:Codable, Equatable {
     var city : String!
     var country : String!
     var countryCode : String!

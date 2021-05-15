@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhq-X8-8L3">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhq-X8-8L3">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Oks-vP-7ci"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="DO7-zB-LGO"/>
@@ -35,7 +35,7 @@
                                     <barButtonItem systemItem="add" id="mmv-1m-jOm">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <segue destination="upw-9z-7qw" kind="show" id="7rM-F6-vbF"/>
+                                            <segue destination="upw-9z-7qw" kind="show" identifier="allLocationSeg" id="7rM-F6-vbF"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -54,6 +54,7 @@
                             <constraint firstItem="vhq-X8-8L3" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="qSg-Yw-XMP"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Y9c-pY-dQD"/>
                     <connections>
                         <outlet property="pageControl" destination="mf5-SK-HOK" id="5Hh-87-4Na"/>
                         <outlet property="scrollView" destination="vhq-X8-8L3" id="hv5-t7-bAX"/>
@@ -61,16 +62,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="88.392857142857139"/>
+            <point key="canvasLocation" x="1042.0289855072465" y="88.392857142857139"/>
         </scene>
         <!--All Locations Table View Controller-->
         <scene sceneID="E27-k8-890">
             <objects>
                 <tableViewController id="upw-9z-7qw" customClass="AllLocationsTableViewController" customModule="WeatherBit" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1Oh-I8-Skm">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1Oh-I8-Skm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="separatorColor" red="0.72611551190000001" green="0.71114091219999997" blue="0.72345280059999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Hpr-TV-1zz">
                             <rect key="frame" x="0.0" y="129.00000034679067" width="414" height="55"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -83,7 +85,7 @@
                                     </constraints>
                                     <state key="normal" title="Add"/>
                                     <connections>
-                                        <segue destination="mw8-AP-qHb" kind="show" id="aXd-O9-Nug"/>
+                                        <segue destination="mw8-AP-qHb" kind="showDetail" identifier="chooseLocationSeg" id="aXd-O9-Nug"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -94,13 +96,42 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="5rC-FU-mYh">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="5rC-FU-mYh" customClass="MainWeatherTableViewCell" customModule="WeatherBit" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="24.5" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5rC-FU-mYh" id="llV-b0-lOD">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGk-o8-tCC">
+                                            <rect key="frame" x="20" y="29.5" width="306" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fej-pW-fFb">
+                                            <rect key="frame" x="334" y="29.5" width="60" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="ebM-mz-khf"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Fej-pW-fFb" firstAttribute="trailing" secondItem="llV-b0-lOD" secondAttribute="trailingMargin" id="DpW-Z4-pe1"/>
+                                        <constraint firstItem="vGk-o8-tCC" firstAttribute="centerY" secondItem="llV-b0-lOD" secondAttribute="centerY" id="QOI-0h-aZR"/>
+                                        <constraint firstItem="Fej-pW-fFb" firstAttribute="centerY" secondItem="llV-b0-lOD" secondAttribute="centerY" id="qJh-j2-Cto"/>
+                                        <constraint firstItem="vGk-o8-tCC" firstAttribute="leading" secondItem="llV-b0-lOD" secondAttribute="leadingMargin" id="qLu-Rd-smX"/>
+                                        <constraint firstItem="Fej-pW-fFb" firstAttribute="leading" secondItem="vGk-o8-tCC" secondAttribute="trailing" constant="8" id="yVL-BG-eQ5"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.38330959040000001" green="0.37540463930000001" blue="0.38190397009999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <outlet property="cityLabel" destination="vGk-o8-tCC" id="fq5-MT-8X1"/>
+                                    <outlet property="tempLabel" destination="Fej-pW-fFb" id="4fH-Go-GIY"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -112,7 +143,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p77-Ch-FBt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="979.71014492753636" y="87.723214285714278"/>
+            <point key="canvasLocation" x="1889.8550724637682" y="87.723214285714278"/>
         </scene>
         <!--Choose City View Controller-->
         <scene sceneID="FUC-C3-2Gv">
@@ -168,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njW-vd-rjJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1789.8550724637682" y="88.392857142857139"/>
+            <point key="canvasLocation" x="2700" y="88.392857142857139"/>
         </scene>
     </scenes>
     <resources>

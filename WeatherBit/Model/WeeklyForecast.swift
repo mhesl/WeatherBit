@@ -68,7 +68,7 @@ class WeeklyForecast {
                 completion(result)
             } else{
                 completion(result)
-                print("Downloding data from server failed")
+                print("Downloding data from server failed weekly")
             }
            
         }
