@@ -13,23 +13,31 @@ protocol AllLocationsTableViewControllerDelegate {
 
 class AllLocationsTableViewController: UITableViewController {
     
+    //MARK: -Outlets
+    @IBOutlet weak var tempSegmentOutlet: UISegmentedControl!
+    @IBOutlet weak var footerView: UIView!
+    
+    //MARK: -vars
     var userDefaults = UserDefaults.standard
     var savedLocations: [WeatherLocation]?
     var weatherData: [CityTempData]?
     
+    var shouldRefresh = false
     var delegate: AllLocationsTableViewControllerDelegate?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = footerView
         loadFromUserDefaults()
+        loadTempFormatFromUserDefaults()
        
     }
+    
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return weatherData?.count ?? 0
     }
 
@@ -46,7 +54,7 @@ class AllLocationsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.didChooseLocation(at: indexPath.row, shouldRefresh: false)
+        delegate?.didChooseLocation(at: indexPath.row, shouldRefresh: shouldRefresh)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -65,7 +73,37 @@ class AllLocationsTableViewController: UITableViewController {
         }
     }
     
+    
+    
+    private func saveNewLocationsToUserDefaults(){
+        userDefaults.setValue(try! PropertyListEncoder().encode(savedLocations!), forKey: "Locations")
+        userDefaults.synchronize()
+    }
+    
+    //MARK: -IBActions
+    @IBAction func tempSegmentValueChanged(_ sender: UISegmentedControl) {
+        updateTempFormatInUserDefaults(newValue: sender.selectedSegmentIndex)
+    }
+    
+    
+    
+    
+    
+    //MARK: -UserDefaults
+    private func loadFromUserDefaults(){
+        if let data = userDefaults.value(forKey: "Locations") as? Data{
+            savedLocations = try? PropertyListDecoder().decode(Array<WeatherLocation>.self, from: data)
+        }
+    }
+    
+    private func updateTempFormatInUserDefaults(newValue: Int){
+        shouldRefresh = true
+        userDefaults.setValue(newValue, forKey: "TempFormat")
+        userDefaults.synchronize()
+    }
+    
     private func deleteLocationFromUserDefaults(location : String){
+        shouldRefresh = true
         if savedLocations != nil {
             for i in 0..<savedLocations!.count {
                 
@@ -80,18 +118,15 @@ class AllLocationsTableViewController: UITableViewController {
         }
     }
     
-    private func saveNewLocationsToUserDefaults(){
-        userDefaults.setValue(try! PropertyListEncoder().encode(savedLocations!), forKey: "Locations")
-        userDefaults.synchronize()
-    }
-    
-    
-    //MARK: -UserDefaults
-    private func loadFromUserDefaults(){
-        if let data = userDefaults.value(forKey: "Locations") as? Data{
-            savedLocations = try? PropertyListDecoder().decode(Array<WeatherLocation>.self, from: data)
+    private func loadTempFormatFromUserDefaults(){
+        
+        if let index = userDefaults.value(forKey: "TempFormat"){
+            tempSegmentOutlet.selectedSegmentIndex = index as! Int
+        } else {
+            tempSegmentOutlet.selectedSegmentIndex = 0
         }
     }
+    
     
     //MARK: -Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uxG-Vl-gg4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -35,7 +35,7 @@
                                     <barButtonItem systemItem="add" id="mmv-1m-jOm">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <segue destination="upw-9z-7qw" kind="show" identifier="allLocationSeg" id="7rM-F6-vbF"/>
+                                            <segue destination="upw-9z-7qw" kind="showDetail" identifier="allLocationSeg" id="7rM-F6-vbF"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -62,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1042.0289855072465" y="88.392857142857139"/>
+            <point key="canvasLocation" x="1952.1739130434785" y="88.392857142857139"/>
         </scene>
         <!--All Locations Table View Controller-->
         <scene sceneID="E27-k8-890">
@@ -88,11 +88,23 @@
                                         <segue destination="mw8-AP-qHb" kind="showDetail" identifier="chooseLocationSeg" id="aXd-O9-Nug"/>
                                     </connections>
                                 </button>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Cpb-L2-ip7">
+                                    <rect key="frame" x="8" y="12" width="69" height="32"/>
+                                    <segments>
+                                        <segment title="°C"/>
+                                        <segment title="°F"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="tempSegmentValueChanged:" destination="upw-9z-7qw" eventType="valueChanged" id="Wh1-qX-BIP"/>
+                                    </connections>
+                                </segmentedControl>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGrayColor"/>
                             <constraints>
                                 <constraint firstItem="R57-T6-MGs" firstAttribute="centerY" secondItem="Hpr-TV-1zz" secondAttribute="centerY" id="L1k-FA-cP5"/>
                                 <constraint firstAttribute="trailing" secondItem="R57-T6-MGs" secondAttribute="trailing" constant="8" id="YbR-zq-ony"/>
+                                <constraint firstItem="Cpb-L2-ip7" firstAttribute="leading" secondItem="Hpr-TV-1zz" secondAttribute="leading" constant="8" id="l82-jH-9Vu"/>
+                                <constraint firstItem="Cpb-L2-ip7" firstAttribute="centerY" secondItem="Hpr-TV-1zz" secondAttribute="centerY" id="wNq-rl-U7w"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -140,10 +152,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="e5G-Gj-cch"/>
+                    <connections>
+                        <outlet property="footerView" destination="Hpr-TV-1zz" id="UPS-Ae-NpA"/>
+                        <outlet property="tempSegmentOutlet" destination="Cpb-L2-ip7" id="Xg6-ha-LHu"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p77-Ch-FBt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889.8550724637682" y="87.723214285714278"/>
+            <point key="canvasLocation" x="2800" y="87.723214285714278"/>
         </scene>
         <!--Choose City View Controller-->
         <scene sceneID="FUC-C3-2Gv">
@@ -199,7 +215,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njW-vd-rjJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2700" y="88.392857142857139"/>
+            <point key="canvasLocation" x="3608.6956521739135" y="88.392857142857139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OxI-bQ-GQS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uxG-Vl-gg4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tv8-cI-4HS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="xgw-Ub-rSA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J7n-1X-6WX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042.0289855072465" y="88.392857142857139"/>
         </scene>
     </scenes>
     <resources>

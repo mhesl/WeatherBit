@@ -146,14 +146,14 @@ class CurrentWeather {
             self._uv = json["data"][0]["uv"].double
             self._sunrise = json["data"][0]["sunrise"].stringValue
             self._sunset = json["data"][0]["sunset"].stringValue
-            self._feelsLike = json["data"][0]["app_temp"].double
+            self._feelsLike = getTempBasedOnSettings(celcius: json["data"][0]["app_temp"].double ?? 0.0)
             self._weatherType = json["data"][0]["weather"]["description"].stringValue
             self._pressure = json["data"][0]["pres"].double
             self._humidity = json["data"][0]["hr"].double
             self._windSpeed = json["data"][0]["wind_spd"].double
             self._weatherIcon = json["data"][0]["weather"]["icon"].stringValue
             self._visibility = json["data"][0]["vis"].double
-            self._currentTemp = json["data"][0]["temp"].double
+            self._currentTemp = getTempBasedOnSettings(celcius: json["data"][0]["temp"].double ?? 0.0)
             
             completion(true)
             

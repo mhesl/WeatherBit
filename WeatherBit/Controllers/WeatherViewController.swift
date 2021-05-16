@@ -29,6 +29,7 @@ class WeatherViewController: UIViewController {
     //MARK: -ViewControllers
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("ViewDidLoad")
         startLocationManager()
         scrollView.delegate = self
 
@@ -36,10 +37,12 @@ class WeatherViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        print("ViewDidAppear")
         if shouldRefresh {
+            
             allLocations = []
             allWeatherViews = []
+            removeViewsFromScrollView()
             locationAuthCheck()
         }
     }
@@ -50,7 +53,6 @@ class WeatherViewController: UIViewController {
     }
     
     
-    
     //MARK: -Download Weather
     
     private func getWeather(){
@@ -59,6 +61,13 @@ class WeatherViewController: UIViewController {
         addWeatherToScrollView()
         setPageControllPageNumber()
     }
+    
+    private func removeViewsFromScrollView(){
+        for view in scrollView.subviews {
+            view.removeFromSuperview()
+        }
+    }
+    
     
     
     //MARK: -UserDefaults
@@ -158,7 +167,9 @@ class WeatherViewController: UIViewController {
     }
     
     private func locationAuthCheck(){
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse{
+        let manager = CLLocationManager()
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse:
             currentLocation = locationManager!.location?.coordinate
             
             if currentLocation != nil {
@@ -170,7 +181,7 @@ class WeatherViewController: UIViewController {
             }else{
                 locationAuthCheck()
             }
-        } else {
+        default:
             locationManager?.requestWhenInUseAuthorization()
             locationAuthCheck()
         }
@@ -219,7 +230,9 @@ extension WeatherViewController: AllLocationsTableViewControllerDelegate{
     func didChooseLocation(at index: Int, shouldRefresh: Bool) {
         let viewNumber = CGFloat(integerLiteral: index)
         let newOffset = CGPoint(x: (scrollView.frame.width + 1.0) * viewNumber, y: 0)
-        
+        if shouldRefresh {
+            self.viewDidAppear(true)
+        }
         scrollView.setContentOffset(newOffset, animated: true)
         updatePageControlSelectedPage(currentPage: index)
     }

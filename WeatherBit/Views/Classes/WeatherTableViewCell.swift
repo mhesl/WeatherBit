@@ -13,11 +13,6 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var weatherIconImageView: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
     
     func generateCell(forecast : WeeklyForecast) {
         dayLabel.text = forecast.date.dayOfWeek()
