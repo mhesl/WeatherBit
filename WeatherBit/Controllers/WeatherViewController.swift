@@ -29,7 +29,6 @@ class WeatherViewController: UIViewController {
     //MARK: -ViewControllers
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("ViewDidLoad")
         startLocationManager()
         scrollView.delegate = self
 
@@ -37,7 +36,6 @@ class WeatherViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("ViewDidAppear")
         if shouldRefresh {
             
             allLocations = []

@@ -140,7 +140,10 @@ class AllLocationsTableViewController: UITableViewController {
 
 extension AllLocationsTableViewController: chooseCityViewControllerDelegate {
     func didAdd(newLocation: WeatherLocation) {
-        print("New location added", newLocation.city as Any , newLocation.country as Any)
+        shouldRefresh = true
+        weatherData?.append(CityTempData(city: newLocation.city, temp: 0.0))
+        tableView.reloadData()
+        
     }
     
     
