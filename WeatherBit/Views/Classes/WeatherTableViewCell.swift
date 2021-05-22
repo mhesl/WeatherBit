@@ -9,9 +9,9 @@ import UIKit
 
 class WeatherTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var weatherIconImageView: UIImageView!
+    @IBOutlet private weak var dayLabel: UILabel!
+    @IBOutlet private weak var tempLabel: UILabel!
+    @IBOutlet private weak var weatherIconImageView: UIImageView!
     
     
     func generateCell(forecast : WeeklyForecast) {

@@ -9,8 +9,6 @@ import UIKit
 
 class WeatherView: UIView {
 
-    
-    
 //  MARK: Outlets
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var cityName: UILabel!
@@ -37,7 +35,6 @@ class WeatherView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         mainInit()
     }
 
@@ -107,7 +104,7 @@ class WeatherView: UIView {
 
 }
 
-//MARK: -extensions
+//MARK: TableView Delegate - DataSource
 
 extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     
@@ -125,6 +122,8 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+
+//MARK: CollectionView DataSource
 extension WeatherView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == hourlyWeatherCollectionView {
@@ -147,6 +146,4 @@ extension WeatherView: UICollectionViewDataSource {
             return cell
         }
     }
-    
-    
 }

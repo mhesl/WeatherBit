@@ -31,3 +31,11 @@ extension Date {
         
     }
 }
+
+extension Double {
+    func fahrenheit() -> Double {
+        return (self * 9.5) + 32
+    }
+}
+
+

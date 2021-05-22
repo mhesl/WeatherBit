@@ -15,36 +15,16 @@ protocol chooseCityViewControllerDelegate {
 class ChooseCityViewController: UIViewController {
     
     //MARK: -Outlets
-
     @IBOutlet weak var tableView: UITableView!
     
     
     //MARK: -Variables
-    
     var allLocations: [WeatherLocation] = []
     var filteredLocations: [WeatherLocation] = []
-    
-    let userDefaults = UserDefaults.standard
-    var savedLocations: [WeatherLocation]?
-    
-    let searchController = UISearchController(searchResultsController : nil)
-    
     var delegate: chooseCityViewControllerDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.tableFooterView = UIView()
-        setupSearchController()
-        tableView.tableHeaderView = searchController.searchBar
-        loadLocationsFromCSV()
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadFromUserDefaults()
-    }
+    var savedLocations: [WeatherLocation]?
+    let searchController = UISearchController(searchResultsController : nil)
+    let userDefaults = UserDefaults.standard
     
     
     private func setupSearchController(){
@@ -58,108 +38,44 @@ class ChooseCityViewController: UIViewController {
     }
     
     
-    private func setupTapGesture(){
-        let tap = UIGestureRecognizer(target: self, action: #selector(tableTapped))
-        self.tableView.backgroundView = UIView()
-        self.tableView.backgroundView?.addGestureRecognizer(tap)
-    }
-    
-    @objc func tableTapped(){
-        dismissView()
-    }
-    
-//MARK: -Fetch locations
-    func loadLocationsFromCSV(){
-        if let path = Bundle.main.path(forResource: "location", ofType: "csv") {
-            parseCSV(at: URL(fileURLWithPath: path))
-        }
-    }
-    
-    func parseCSV(at path: URL){
-        
-        do {
-            let data = try Data(contentsOf: path)
-            let dataEncoded = String(data: data, encoding: .utf8)
-            
-            if let dataArray = dataEncoded?.components(separatedBy: "\n").map({ $0.components(separatedBy: ",")}) {
-                
-                var i = 0
-                for line in dataArray {
-                    if line.count > 2 && i != 0{
-                        createLocation(line: line)
-                    }
-                    i += 1
-                    
-                }
-            }
-        } catch {
-            print("Error while reading CSV file" , error.localizedDescription)
-        }
-    }
-    
-    func createLocation(line : [String]) {
-        allLocations.append(WeatherLocation(city: line.first!, country: line[1], countryCode: line.last!, isCurrentLocation: false))
-        
-    }
-    
-    //MARK: -UserDefaults
-    
-    private func saveToUserDefaults(location : WeatherLocation) {
-        if  savedLocations != nil {
-            if !savedLocations!.contains(location){
-                savedLocations!.append(location)
-            }
-        }else{
-            savedLocations = [location]
-        }
-        
-        userDefaults.setValue(try? PropertyListEncoder().encode(savedLocations!), forKey: "Locations")
-        userDefaults.synchronize()
-    }
-    
-    private func loadFromUserDefaults(){
-        if let data = userDefaults.value(forKey: "Locations") as? Data{
-            savedLocations = try? PropertyListDecoder().decode(Array<WeatherLocation>.self, from: data)
-            
-            
-        }
-    }
-    
-    private func dismissView() {
-        if searchController.isActive {
-            searchController.dismiss(animated: true) {
-                self.dismiss(animated: true)
-            }
-        } else {
-            self.dismiss(animated: true)
-        }
-    }
-
 }
 
-//MARK: -Extensions
 
+//MARK: VC LifeCycle
+extension ChooseCityViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.tableFooterView = UIView()
+        setupSearchController()
+        tableView.tableHeaderView = searchController.searchBar
+        loadLocationsFromCSV()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadFromUserDefaults()
+    }
+    
+}
+
+// MARK: Search result
 extension ChooseCityViewController: UISearchResultsUpdating {
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
-        
         filteredLocations = allLocations.filter({ (location) -> Bool in
             return location.city.lowercased().contains(searchText.lowercased()) || location.country.lowercased().contains(searchText.lowercased())
         })
         tableView.reloadData()
-        
     }
-    
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
-    
-    
 }
 
 
 
-
+// MARK: TableView Delegate - DataSource
 extension ChooseCityViewController : UITableViewDelegate, UITableViewDataSource {
     
     
@@ -182,6 +98,88 @@ extension ChooseCityViewController : UITableViewDelegate, UITableViewDataSource 
         delegate?.didAdd(newLocation: filteredLocations[indexPath.row])
         dismissView()
     }
+}
 
+
+//MARK: -UserDefaults
+extension ChooseCityViewController{
+    
+    private func saveToUserDefaults(location : WeatherLocation) {
+        if  savedLocations != nil {
+            if !savedLocations!.contains(location){
+                savedLocations!.append(location)
+            }
+        }else{
+            savedLocations = [location]
+        }
+        userDefaults.setValue(try? PropertyListEncoder().encode(savedLocations!), forKey: "Locations")
+        userDefaults.synchronize()
+    }
+    
+    private func loadFromUserDefaults(){
+        if let data = userDefaults.value(forKey: "Locations") as? Data{
+            savedLocations = try? PropertyListDecoder().decode(Array<WeatherLocation>.self, from: data)
+            
+        }
+    }
+}
+
+
+//MARK: Fetch Locations
+extension ChooseCityViewController{
+    
+    func loadLocationsFromCSV(){
+        if let path = Bundle.main.path(forResource: "location", ofType: "csv") {
+            parseCSV(at: URL(fileURLWithPath: path))
+        }
+    }
+    
+    func parseCSV(at path: URL){
+        
+        do {
+            let data = try Data(contentsOf: path)
+            let dataEncoded = String(data: data, encoding: .utf8)
+            
+            if let dataArray = dataEncoded?.components(separatedBy: "\n").map({ $0.components(separatedBy: ",")}) {
+                var i = 0
+                for line in dataArray {
+                    if line.count > 2 && i != 0{
+                        createLocation(line: line)
+                    }
+                    i += 1
+                }
+            }
+        } catch {
+            print("Error while reading CSV file" , error.localizedDescription)
+        }
+    }
+    
+    func createLocation(line : [String]) {
+        allLocations.append(WeatherLocation(city: line.first!, country: line[1], countryCode: line.last!, isCurrentLocation: false))
+    }
+    
+}
+
+//MARK: Tap Gesture
+extension ChooseCityViewController {
+    
+    private func setupTapGesture(){
+        let tap = UIGestureRecognizer(target: self, action: #selector(tableTapped))
+        self.tableView.backgroundView = UIView()
+        self.tableView.backgroundView?.addGestureRecognizer(tap)
+    }
+    
+    @objc func tableTapped(){
+        dismissView()
+    }
+    private func dismissView() {
+        if searchController.isActive {
+            searchController.dismiss(animated: true) {
+                self.dismiss(animated: true)
+            }
+        } else {
+            self.dismiss(animated: true)
+        }
+    }
     
 }

@@ -9,9 +9,9 @@ import UIKit
 
 class InfoCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var infoImageView: UIImageView!
+    @IBOutlet private weak var infoLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var infoImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }

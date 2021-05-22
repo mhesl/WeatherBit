@@ -94,11 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				04882EE926498C7A00A49B56 /* Extensions */,
-				0411AEFD2644A744001C53F2 /* WeatherInfo.swift */,
 				0483E1E12645D668004EE931 /* API_URL.swift */,
-				0483E1DF2645D1BE004EE931 /* WeatherLocation.swift */,
 				041E2D2226418B6C00E9B20E /* GlobalHelpers.swift */,
-				04A7D1A3264D619D00C4D9E5 /* CityTempData.swift */,
 				04A7D1A5264D925A00C4D9E5 /* LocationService.swift */,
 				047CF1042651BBC700F7BC9B /* TempFormat.swift */,
 			);
@@ -108,6 +105,9 @@
 		0422BE4926402BF2004E659F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04A7D1A3264D619D00C4D9E5 /* CityTempData.swift */,
+				0483E1DF2645D1BE004EE931 /* WeatherLocation.swift */,
+				0411AEFD2644A744001C53F2 /* WeatherInfo.swift */,
 				0422BE4A26402C0B004E659F /* CurrentWeather.swift */,
 				041E2D242641B13200E9B20E /* HourlyForecast.swift */,
 				041E2D262641C38700E9B20E /* WeeklyForecast.swift */,
@@ -171,6 +171,7 @@
 		04882EE826498C5900A49B56 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				04EDDEE326400AC200AE6A6C /* SceneDelegate.swift */,
 				04EDDEE126400AC200AE6A6C /* AppDelegate.swift */,
 				04347DD226471C660079A00D /* location.csv */,
 				04EDDEEA26400AC400AE6A6C /* Assets.xcassets */,
@@ -213,7 +214,6 @@
 				041E2D2126418B5200E9B20E /* Helpers */,
 				0422BE4926402BF2004E659F /* Model */,
 				04EDDEEF26400AC400AE6A6C /* Info.plist */,
-				04EDDEE326400AC200AE6A6C /* SceneDelegate.swift */,
 			);
 			path = WeatherBit;
 			sourceTree = "<group>";

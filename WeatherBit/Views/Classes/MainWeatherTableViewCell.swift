@@ -9,9 +9,9 @@ import UIKit
 
 class MainWeatherTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet private weak var cityLabel: UILabel!
     
-    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet private weak var tempLabel: UILabel!
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

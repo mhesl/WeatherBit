@@ -24,16 +24,14 @@ func getWeatherIconFor(_ type: String) -> UIImage? {
 }
 
 
-func fahrenheitFrom(celcius: Double) -> Double {
-    return (celcius*9.5) + 32
-}
+
 
 func getTempBasedOnSettings(celcius: Double) -> Double{
     let format = returnTempFormatFromUserdefaults()
     if format == TempFormat.celsius {
         return celcius
     }else {
-        return fahrenheitFrom(celcius: celcius)
+        return celcius.fahrenheit()
     }
 }
 

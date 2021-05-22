@@ -8,6 +8,8 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Helper
+
 
 class WeeklyForecast {
     
@@ -49,7 +51,6 @@ class WeeklyForecast {
     class func downloadWeaklyForcastWeather(location: WeatherLocation, completion : @escaping(_ weaklyForecast: [WeeklyForecast]) -> Void) {
         
         var LOCATIONAPI_URL : String!
-        
         if !location.isCurrentLocation {
             LOCATIONAPI_URL = String(format: "https://api.weatherbit.io/v2.0/forecast/daily?city=%@,%@&key=0266e19cd22e4bdbad78316eeb30e917&include=minutely", location.city,location.countryCode)
         } else {

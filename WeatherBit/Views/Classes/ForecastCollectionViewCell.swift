@@ -9,11 +9,11 @@ import UIKit
 
 class ForecastCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel!
     
-    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet private weak var temperatureLabel: UILabel!
     
-    @IBOutlet weak var weatherIconImageView: UIImageView!
+    @IBOutlet private weak var weatherIconImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
